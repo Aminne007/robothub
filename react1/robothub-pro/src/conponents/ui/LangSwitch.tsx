@@ -32,7 +32,7 @@ export default function LangSwitch() {
     <button
       type="button"
       onClick={toggle}
-      className="rounded-md px-3 py-1 text-sm font-medium border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors duration-200"
+      className="inline-flex h-10 items-center rounded-md border border-zinc-300 bg-white px-3 text-sm font-semibold uppercase tracking-wide text-zinc-800 transition hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
       aria-label="Switch language"
       aria-pressed={i18n.language === "ar"}
       title="Switch language"
