@@ -5,10 +5,12 @@ import Product from "../pages/Product";
 import Cart from "../pages/Cart";
 import Login from "../pages/Login";
 import Admin from "../pages/Admin";
+import Dashboard from "../pages/Dashboard";
 
 export const routes: RouteObject[] = [
   { path: "/", element: <Home /> },
   { path: "/catalog", element: <Catalog /> },
+  { path: "/dashboard", element: <Dashboard /> },
   { path: "/product/:id", element: <Product /> },
   { path: "/cart", element: <Cart /> },
   { path: "/login", element: <Login /> },

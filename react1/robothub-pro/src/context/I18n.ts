@@ -11,6 +11,7 @@ const resources = {
       nav: {
         home: "Home",
         catalog: "Catalog",
+        dashboard: "Dashboards",
         cart: "Cart",
         admin: "Admin",
         login: "Login",
@@ -85,6 +86,7 @@ const resources = {
       nav: {
         home: "الرئيسية",
         catalog: "المتجر",
+        dashboard: "لوحات التحكم",
         cart: "السلة",
         admin: "لوحة التحكم",
         login: "تسجيل الدخول",
