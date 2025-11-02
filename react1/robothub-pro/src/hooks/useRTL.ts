@@ -1,15 +1,20 @@
 import { useEffect } from "react";
+
 export const useRTL = (lang: string) => {
+  useEffect(() => {
+    if (typeof document === "undefined") return;
 
-useEffect(() => {
+    const { documentElement } = document;
+    const previousDir = documentElement.dir;
+    const previousLang = documentElement.lang;
+    const nextDir = lang === "ar" ? "rtl" : "ltr";
 
-document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-document.documentElement.lang =lang;
+    documentElement.dir = nextDir;
+    documentElement.lang = lang;
 
-
-
-}, [lang]);
-
-
-
-}
+    return () => {
+      documentElement.dir = previousDir;
+      documentElement.lang = previousLang;
+    };
+  }, [lang]);
+};

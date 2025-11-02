@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 
 type User = { email: string } | null;
 type AuthCtx = {
@@ -7,17 +13,37 @@ type AuthCtx = {
   logout: () => void;
 };
 
+const STORAGE_KEY = "user";
+
 const AuthContext = createContext<AuthCtx | undefined>(undefined);
 
+const getInitialUser = (): User => {
+  if (typeof window === "undefined") return null;
+  const stored = window.localStorage.getItem(STORAGE_KEY);
+  return stored ? { email: stored } : null;
+};
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User>(null);
+  const [user, setUser] = useState<User>(getInitialUser);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const handleStorage = (event: StorageEvent) => {
+      if (event.key !== STORAGE_KEY) return;
+      setUser(event.newValue ? { email: event.newValue } : null);
+    };
+
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
 
   const login = async (email: string, password: string) => {
-    // fake async auth
-    await new Promise(r => setTimeout(r, 500));
+    await new Promise(resolve => setTimeout(resolve, 500));
     if (email === "admin@robothub.com" && password === "admin123") {
       setUser({ email });
-      localStorage.setItem("user", email);
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem(STORAGE_KEY, email);
+      }
     } else {
       throw new Error("Invalid credentials");
     }
@@ -25,7 +51,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("user");
+    if (typeof window !== "undefined") {
+      window.localStorage.removeItem(STORAGE_KEY);
+    }
   };
 
   return (
