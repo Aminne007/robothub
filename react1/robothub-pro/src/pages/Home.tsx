@@ -1,8 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { useAuth } from "../context/AuthContext";
-
 import { featureCards, metricHighlights, partnerLogos, testimonials, workflowSteps, getCopy } from "../data/content";
 import { products } from "../data/products";
 
@@ -16,7 +14,6 @@ const trendingProducts = products.slice(0, 3);
 export default function Home() {
   const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith("ar") ? "ar" : "en";
-  const { user } = useAuth();
 
   return (
     <div className="space-y-16">
@@ -40,16 +37,10 @@ export default function Home() {
                 {t("hero.cta")}
               </Link>
               <Link
-                to={user ? "/dashboard" : "/register"}
+                to="/dashboard"
                 className="inline-flex items-center justify-center rounded-full border border-zinc-300 px-5 py-2.5 text-sm font-semibold text-zinc-800 transition hover:bg-zinc-900/5 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-white/10"
               >
-                {user
-                  ? lang === "ar"
-                    ? "لوحتي"
-                    : "Open my dashboard"
-                  : lang === "ar"
-                    ? "أنشئ حسابًا مجانيًا"
-                    : "Create free account"}
+                {lang === "ar" ? "استعرض اللوحات" : "View dashboards"}
               </Link>
             </div>
           </div>
@@ -200,22 +191,16 @@ export default function Home() {
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <Link
-              to={user ? "/dashboard" : "/register"}
+              to="/dashboard"
               className="inline-flex items-center justify-center rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-blue-700 shadow-sm transition hover:bg-blue-50"
             >
-              {user
-                ? lang === "ar"
-                  ? "انتقل إلى اللوحة"
-                  : "Go to dashboard"
-                : lang === "ar"
-                  ? "سجل مجانًا"
-                  : "Sign up free"}
+              {lang === "ar" ? "استعرض اللوحات" : "Explore dashboards"}
             </Link>
             <Link
-              to={user ? "/catalog" : "/login"}
+              to="/login"
               className="inline-flex items-center justify-center rounded-full border border-white/60 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10"
             >
-              {user ? (lang === "ar" ? "عرض الكتالوج" : "View catalog") : t("nav.login")}
+              {t("nav.login")}
             </Link>
           </div>
         </div>

@@ -1,5 +1,8 @@
 import { useMemo, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { useTheme } from "../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
 
 import { useTheme } from "../../context/ThemeContext";
@@ -7,6 +10,7 @@ import { useAuth } from "../../context/AuthContext";
 import { cn } from "../../lib/cn";
 import LangSwitch from "../ui/LangSwitch";
 import ThemeToggle from "../ui/ThemeToggle";
+import { cn } from "../../lib/cn";
 
 export default function Navbar() {
   const { dark } = useTheme();
@@ -65,6 +69,23 @@ export default function Navbar() {
       {item.label}
     </NavLink>
   );
+  const [open, setOpen] = useState(false);
+
+  const linkCls = ({ isActive }: { isActive: boolean }) =>
+    cn(
+      "block rounded-md px-3 py-2 text-sm font-medium transition",
+      isActive
+        ? "bg-blue-600/10 text-blue-700 dark:text-blue-300"
+        : "text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-200 dark:hover:bg-white/5",
+    );
+
+  const navigation = [
+    { href: "/", label: t("nav.home") },
+    { href: "/catalog", label: t("nav.catalog") },
+    { href: "/dashboard", label: t("nav.dashboard") },
+    { href: "/cart", label: t("nav.cart") },
+    { href: "/admin", label: t("nav.admin") },
+  ];
 
   return (
     <header
@@ -135,6 +156,26 @@ export default function Navbar() {
               </NavLink>
             </div>
           )}
+              <li key={item.href}>
+                <NavLink to={item.href} className={linkCls} onClick={() => setOpen(false)}>
+                  {item.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+          <NavLink
+            to="/login"
+            className={({ isActive }) =>
+              cn(
+                "rounded-full border border-blue-600 px-4 py-2 text-sm font-semibold transition",
+                isActive
+                  ? "bg-blue-600 text-white"
+                  : "text-blue-600 hover:bg-blue-600 hover:text-white dark:text-blue-300 dark:hover:bg-blue-600",
+              )
+            }
+          >
+            {t("nav.login")}
+          </NavLink>
         </div>
 
         <div className="flex items-center gap-2">
@@ -192,6 +233,33 @@ export default function Navbar() {
               </>
             )}
           </div>
+              <li key={item.href}>
+                <NavLink
+                  to={item.href}
+                  className={linkCls}
+                  onClick={() => setOpen(false)}
+                >
+                  {item.label}
+                </NavLink>
+              </li>
+            ))}
+            <li>
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  cn(
+                    "block rounded-md px-3 py-2 text-sm font-semibold",
+                    isActive
+                      ? "bg-blue-600 text-white"
+                      : "text-blue-600 hover:bg-blue-50 dark:text-blue-300 dark:hover:bg-blue-900/30",
+                  )
+                }
+                onClick={() => setOpen(false)}
+              >
+                {t("nav.login")}
+              </NavLink>
+            </li>
+          </ul>
         </div>
       )}
     </header>
