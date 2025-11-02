@@ -11,9 +11,12 @@ const resources = {
       nav: {
         home: "Home",
         catalog: "Catalog",
+        dashboard: "Dashboards",
         cart: "Cart",
         admin: "Admin",
         login: "Login",
+        logout: "Logout",
+        register: "Register",
       },
       hero: {
         title: "Robotics parts & knowledge",
@@ -85,9 +88,12 @@ const resources = {
       nav: {
         home: "الرئيسية",
         catalog: "المتجر",
+        dashboard: "لوحات التحكم",
         cart: "السلة",
         admin: "لوحة التحكم",
         login: "تسجيل الدخول",
+        logout: "تسجيل الخروج",
+        register: "إنشاء حساب",
       },
       hero: {
         title: "قطع ومعرفة للروبوتات",
