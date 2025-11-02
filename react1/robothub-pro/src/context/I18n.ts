@@ -15,6 +15,8 @@ const resources = {
         cart: "Cart",
         admin: "Admin",
         login: "Login",
+        logout: "Logout",
+        register: "Register",
       },
       hero: {
         title: "Robotics parts & knowledge",
@@ -90,6 +92,8 @@ const resources = {
         cart: "السلة",
         admin: "لوحة التحكم",
         login: "تسجيل الدخول",
+        logout: "تسجيل الخروج",
+        register: "إنشاء حساب",
       },
       hero: {
         title: "قطع ومعرفة للروبوتات",

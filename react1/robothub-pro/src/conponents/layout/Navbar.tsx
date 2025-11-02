@@ -1,14 +1,74 @@
+import { useMemo, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
-import ThemeToggle from "../ui/ThemeToggle";
+
+import { useTheme } from "../../context/ThemeContext";
+import { useAuth } from "../../context/AuthContext";
+import { cn } from "../../lib/cn";
 import LangSwitch from "../ui/LangSwitch";
+import ThemeToggle from "../ui/ThemeToggle";
 import { cn } from "../../lib/cn";
 
 export default function Navbar() {
   const { dark } = useTheme();
   const { t } = useTranslation();
+  const { user, logout } = useAuth();
+  const [open, setOpen] = useState(false);
+
+  const navigation = useMemo(() => {
+    if (!user) {
+      return [
+        { href: "/", label: t("nav.home") },
+        { href: "/catalog", label: t("nav.catalog") },
+        { href: "/login", label: t("nav.login") },
+      ];
+    }
+
+    if (user.role === "admin") {
+      return [
+        { href: "/", label: t("nav.home") },
+        { href: "/catalog", label: t("nav.catalog") },
+        { href: "/admin", label: t("nav.admin") },
+        { href: "/admin/stats", label: "Stats" },
+        { href: "/admin/inventory", label: "Inventory" },
+        { href: "/admin/users", label: "Users" },
+      ];
+    }
+
+    return [
+      { href: "/", label: t("nav.home") },
+      { href: "/catalog", label: t("nav.catalog") },
+      { href: "/dashboard", label: t("nav.dashboard") },
+      { href: "/orders", label: "Orders" },
+      { href: "/cart", label: t("nav.cart") },
+    ];
+  }, [t, user]);
+
+  const handleLogout = () => {
+    logout();
+    setOpen(false);
+  };
+
+  const renderNavLink = (item: { href: string; label: string }) => (
+    <NavLink
+      key={item.href}
+      to={item.href}
+      className={({ isActive }) =>
+        cn(
+          "block rounded-md px-3 py-2 text-sm font-medium transition",
+          isActive
+            ? "bg-blue-600/10 text-blue-700 dark:text-blue-300"
+            : "text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-200 dark:hover:bg-white/5",
+        )
+      }
+      onClick={() => setOpen(false)}
+    >
+      {item.label}
+    </NavLink>
+  );
   const [open, setOpen] = useState(false);
 
   const linkCls = ({ isActive }: { isActive: boolean }) =>
@@ -55,6 +115,47 @@ export default function Navbar() {
         <div className="hidden items-center gap-6 md:flex">
           <ul className="flex items-center gap-2">
             {navigation.map(item => (
+              <li key={item.href}>{renderNavLink(item)}</li>
+            ))}
+          </ul>
+          {user ? (
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="rounded-full border border-zinc-300 px-4 py-2 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-100 dark:border-zinc-600 dark:text-zinc-200 dark:hover:bg-zinc-800"
+            >
+              {t("nav.logout", { defaultValue: "Logout" })}
+            </button>
+          ) : (
+            <div className="flex items-center gap-2">
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  cn(
+                    "rounded-full border border-blue-600 px-4 py-2 text-sm font-semibold transition",
+                    isActive
+                      ? "bg-blue-600 text-white"
+                      : "text-blue-600 hover:bg-blue-600 hover:text-white dark:text-blue-300 dark:hover:bg-blue-600",
+                  )
+                }
+              >
+                {t("nav.login")}
+              </NavLink>
+              <NavLink
+                to="/register"
+                className={({ isActive }) =>
+                  cn(
+                    "rounded-full border border-zinc-300 px-4 py-2 text-sm font-semibold transition",
+                    isActive
+                      ? "bg-zinc-900 text-white"
+                      : "text-zinc-700 hover:bg-zinc-100 dark:border-zinc-600 dark:text-zinc-200 dark:hover:bg-zinc-800",
+                  )
+                }
+              >
+                {t("nav.register", { defaultValue: "Register" })}
+              </NavLink>
+            </div>
+          )}
               <li key={item.href}>
                 <NavLink to={item.href} className={linkCls} onClick={() => setOpen(false)}>
                   {item.label}
@@ -87,6 +188,51 @@ export default function Navbar() {
         <div className="border-t border-zinc-200 bg-white px-4 py-3 shadow-sm dark:border-zinc-800 dark:bg-zinc-900 md:hidden">
           <ul className="space-y-2">
             {navigation.map(item => (
+              <li key={item.href}>{renderNavLink(item)}</li>
+            ))}
+          </ul>
+          <div className="mt-3 space-y-2">
+            {user ? (
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="w-full rounded-md border border-zinc-300 px-3 py-2 text-sm font-semibold text-zinc-700 transition hover:bg-zinc-100 dark:border-zinc-600 dark:text-zinc-200 dark:hover:bg-zinc-800"
+              >
+                {t("nav.logout", { defaultValue: "Logout" })}
+              </button>
+            ) : (
+              <>
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    cn(
+                      "block rounded-md px-3 py-2 text-sm font-semibold",
+                      isActive
+                        ? "bg-blue-600 text-white"
+                        : "text-blue-600 hover:bg-blue-50 dark:text-blue-300 dark:hover:bg-blue-900/30",
+                    )
+                  }
+                  onClick={() => setOpen(false)}
+                >
+                  {t("nav.login")}
+                </NavLink>
+                <NavLink
+                  to="/register"
+                  className={({ isActive }) =>
+                    cn(
+                      "block rounded-md px-3 py-2 text-sm font-semibold",
+                      isActive
+                        ? "bg-zinc-900 text-white"
+                        : "text-zinc-700 hover:bg-zinc-100 dark:text-zinc-200 dark:hover:bg-zinc-800",
+                    )
+                  }
+                  onClick={() => setOpen(false)}
+                >
+                  {t("nav.register", { defaultValue: "Register" })}
+                </NavLink>
+              </>
+            )}
+          </div>
               <li key={item.href}>
                 <NavLink
                   to={item.href}
