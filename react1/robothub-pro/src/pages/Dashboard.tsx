@@ -110,6 +110,9 @@ export default function Dashboard() {
             <li>• Track fulfillment progress in <Link to="/orders" className="font-semibold text-blue-600 dark:text-blue-400">Orders</Link>.</li>
             <li>• Update contact details in <Link to="/profile" className="font-semibold text-blue-600 dark:text-blue-400">Profile</Link>.</li>
             <li>• Need enterprise pricing? <a href="mailto:sales@robothub.com" className="font-semibold text-blue-600 dark:text-blue-400">Talk with sales</a>.</li>
+          </ul>
+        </aside>
+
         <article className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
           <header className="flex items-center justify-between">
             <div>
@@ -183,6 +186,14 @@ export default function Dashboard() {
               <p className="font-semibold text-zinc-900 dark:text-zinc-100">Schedule deployment assist</p>
               <p className="text-xs text-zinc-500 dark:text-zinc-400">Our field teams can help stage your build and train operators in under a week.</p>
             </li>
+            <li className="rounded-xl border border-dashed border-zinc-300/70 p-4 dark:border-zinc-700/70">
+              <p className="font-semibold text-zinc-900 dark:text-zinc-100">Share telemetry</p>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">Invite control tower stakeholders to follow live test deployments.</p>
+            </li>
+          </ul>
+        </article>
+
+        <article className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
           <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Learning tracks</h2>
           <ul className="space-y-3 text-sm">
             {learningTracks.map(track => (
@@ -212,6 +223,7 @@ export default function Dashboard() {
           </ul>
         </article>
       </section>
+
 
       <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
         <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Field alerts</h2>

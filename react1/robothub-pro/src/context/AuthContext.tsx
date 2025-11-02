@@ -44,7 +44,8 @@ const SESSION_KEY = "robothub:session";
 const ACCOUNTS_KEY = "robothub:accounts";
 
 const sanitizeAccount = (account: AccountRecord): SessionUser => {
-  const { password, ...rest } = account;
+  const { password: _password, ...rest } = account;
+  void _password;
   return rest;
 };
 
@@ -224,6 +225,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error("useAuth must be inside AuthProvider");

@@ -32,12 +32,14 @@ export default function LangSwitch() {
     <button
       type="button"
       onClick={toggle}
-      className="inline-flex h-10 items-center rounded-md border border-zinc-300 bg-white px-3 text-sm font-semibold uppercase tracking-wide text-zinc-800 transition hover:bg-zinc-100 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
+      className="inline-flex h-10 items-center justify-center gap-1 rounded-full border border-zinc-300 bg-white/90 px-3 text-xs font-semibold uppercase tracking-[0.2em] text-zinc-800 shadow-sm transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 dark:border-white/10 dark:bg-zinc-900/70 dark:text-zinc-100 dark:hover:bg-zinc-900"
       aria-label="Switch language"
       aria-pressed={i18n.language === "ar"}
       title="Switch language"
     >
-      {i18n.language.toUpperCase()}
+      <span className="text-[0.65rem]">{i18n.language.toUpperCase()}</span>
+      <span aria-hidden className="text-zinc-400">|</span>
+      <span className="text-[0.65rem]">{i18n.language === "en" ? "AR" : "EN"}</span>
     </button>
   );
 }
