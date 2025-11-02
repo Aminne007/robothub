@@ -1,0 +1,10 @@
+export default function Footer() {
+    return (
+      <footer className="border-t border-zinc-200 dark:border-zinc-700 text-sm opacity-70 text-zinc-900 dark:text-zinc-100">
+        <div className="mx-auto max-w-6xl p-4">
+          © {new Date().getFullYear()} RobotHub Pro
+        </div>
+      </footer>
+    );
+  }
+  

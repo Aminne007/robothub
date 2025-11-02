@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>test</title>
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">User <span>Dashboard</span></div>
+        <ul class="nav-links" id="nav-links">
+
+            <li><a href="#" class="active"> Home</a></li>
+            <li>
+                <a href="#"> Users</a>
+            </li>
+            <li><a href="#"> Reports </a></li>
+            <li>
+                <a href="#"> Settings</a>
+            </li>
+        </ul>
+
+        <div class="nav-actions">
+            <button class="menu-btn" id="menuBtn">☰</button>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </div>
+    </nav>
+
+    <header>
+        <h1>Welcome to Users dashboard</h1>
+        <p id="quote">Loading quote....</p>
+    </header>
+
+
+
+    <main>
+
+        <form id="userForm">
+            <h2> Add New User</h2>
+
+            <input type="text" id="name" placeholder="Name" required />
+            <input type="email" id="email" placeholder="email" required />
+            <div class="password-wrapper">
+            <input type="password" id="password" placeholder="password" required/>
+           <button  type="button" id="togglePassword">👁️</button>
+           </div>    
+           <div id="strengthBar"><div></div></div> 
+           <select id="role">
+            <option value="">Select Role</option>
+            <option value="admin">Admin</option>
+            <option value="editor">Editor</option>
+            <option value="viewer">Viewer</option>
+           </select>
+           <button type="submit" >Add User</button>
+        </form>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder=" Seach users by name or email..."/>
+
+        </div>
+
+
+
+       <div class="card">
+      <h2>User List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Password</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="userTable"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Advanced Dashboard by Amine</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
